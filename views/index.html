@@ -56,11 +56,11 @@
 				{{end}}
 			</div>
 			<div class="product_list_header">  
-					<form action="#" method="post" class="last"> 
-						<input type="hidden" name="cmd" value="_cart">
-						<input type="hidden" name="display" value="1">
-						<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-					</form>  
+				<form action="#" method="post" class="last"> 
+					<input type="hidden" name="cmd" value="_cart">
+					<input type="hidden" name="display" value="1">
+					<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+				</form>  
 			</div>
 			<div class="clearfix"> </div>
 		</div>
@@ -280,12 +280,13 @@
 															<h4>$20.99 <span>$35.00</span></h4>
 														</div>
 														<div class="snipcart-details top_brand_home_details">
-															<form action="#" method="post">
+															<form action="/addItem" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
+																	<input type="hidden" name="pid" value="1" />
 																	<input type="hidden" name="business" value=" " />
-																	<input type="hidden" name="item_name" value="Fortune Sunflower Oil" />
+																	<input type="hidden" name="item_name" value="Tata-salt" />
 																	<input type="hidden" name="amount" value="20.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
 																	<input type="hidden" name="currency_code" value="USD" />
@@ -323,12 +324,13 @@
 															<h4>$20.99 <span>$35.00</span></h4>
 														</div>
 														<div class="snipcart-details top_brand_home_details">
-															<form action="#" method="post">
+															<form action="/addItem" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
+																	<input type="hidden" name="pid" value="2" />
 																	<input type="hidden" name="business" value=" " />
-																	<input type="hidden" name="item_name" value="basmati rise" />
+																	<input type="hidden" name="item_name" value="Fortune Sunflower Oil" />
 																	<input type="hidden" name="amount" value="20.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
 																	<input type="hidden" name="currency_code" value="USD" />
@@ -1251,17 +1253,18 @@
 			});
 	</script>
 <!-- //here ends scrolling icon -->
-<script src="/static/js/minicart.min.js"></script>
+<!-- <script src="/static/js/minicart.min.js"></script>
 <script>
 	// Mini Cart
 	paypal.minicart.render({
 		action: '#'
+		
 	});
 
 	if (~window.location.search.indexOf('reset=true')) {
 		paypal.minicart.reset();
 	}
-</script>
+</script> -->
 <!-- main slider-banner -->
 <script src="/static/js/skdslider.min.js"></script>
 <link href="/static/css/skdslider.css" rel="stylesheet">

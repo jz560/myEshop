@@ -235,35 +235,39 @@
 							<th>Remove</th>
 						</tr>
 					</thead>
-					<tr class="rem1">
-						<td class="invert">1</td>
-						<td class="invert-image"><a href="single.html"><img src="/static/images/1.png" alt=" " class="img-responsive" /></a></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-						</td>
-						<td class="invert">Tata Salt</td>
+					{{range $k1,$v1 := .Product}}
 						
-						<td class="invert">$290.00</td>
-						<td class="invert">
-							<div class="rem">
-								<div class="close1"> </div>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close1').on('click', function(c){
-									$('.rem1').fadeOut('slow', function(c){
-										$('.rem1').remove();
+						<tr class="rem1">
+							<td class="invert">{{$v1.Pid}}</td>
+							<td class="invert-image"><a href="single.html"><img src={{$v1.Img}} alt=" " class="img-responsive" /></a></td>
+							<td class="invert">
+								<div class="quantity"> 
+									<div class="quantity-select">                           
+										<div class="entry value-minus">&nbsp;</div>
+										<div class="entry value"><span>1</span></div>
+										<div class="entry value-plus active">&nbsp;</div>
+									</div>
+								</div>
+							</td>
+							<td class="invert">{{$v1.Pname}}</td>
+							
+							<td class="invert">${{$v1.Amount}}</td>
+							<td class="invert">
+								<div class="rem">
+									<div class="close1"> </div>
+								</div>
+								<script>$(document).ready(function(c) {
+									$('.close1').on('click', function(c){
+										$('.rem1').fadeOut('slow', function(c){
+											$('.rem1').remove();
+										});
+										});	  
 									});
-									});	  
-								});
-						   </script>
-						</td>
-					</tr>
+							</script>
+							</td>
+						</tr>
+						
+					{{end}}
 					<tr class="rem2">
 						<td class="invert">2</td>
 						<td class="invert-image"><a href="single.html"><img src="/static/images/2.png" alt=" " class="img-responsive" /></a></td>
