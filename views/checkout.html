@@ -257,17 +257,12 @@
 								<td class="invert">${{$v1.Amount}}</td>
 								<td class="invert">${{$v1.ItemTotal}}</td>
 								<td class="invert">
-									<div class="rem">
-										<div class="close1"> </div>
-									</div>
-									<script>$(document).ready(function(c) {
-										$('.close1').on('click', function(c){
-											$('.rem1').fadeOut('slow', function(c){
-												$('.rem1').remove();
-											});
-											});	  
-										});
-								</script>
+									<form action="/removeItem" method="post">
+										<fieldset>
+											<input type="hidden" name="pid" class="pid" value={{$v1.Pid}} />
+											<button type="submit" name="submit" value="" class="button addBtn2" id="2"><i class="glyphicon glyphicon-trash"></i></button>
+										</fieldset>
+									</form>
 								</td>
 							</tr>
 						{{end}}
@@ -276,17 +271,10 @@
 			</div>
 			<div class="checkout-left">	
 				<div class="checkout-left-basket">
-					<h4>Continue to basket</h4>
-					<ul>
-						<li>Product1 <i>-</i> <span>$15.00 </span></li>
-						<li>Product2 <i>-</i> <span>$25.00 </span></li>
-						<li>Product3 <i>-</i> <span>$29.00 </span></li>
-						<li>Total Service Charges <i>-</i> <span>$15.00</span></li>
-						<li>Total <i>-</i> <span>${{.Total}}</span></li>
-					</ul>
+					<h4>Total <i>-</i> <span>${{.Total}}</span></h4>
 				</div>
 				<div class="checkout-right-basket">
-					<a href="single.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Continue Shopping</a>
+					<a href="single.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>Checkout</a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
