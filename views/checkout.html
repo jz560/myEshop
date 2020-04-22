@@ -221,7 +221,6 @@
 <!-- checkout -->
 	<div class="checkout">
 		<div class="container">
-			<h2>Your shopping cart contains: <span>3 Products</span></h2>
 			<div class="checkout-right">
 				<table class="timetable_sub">
 					<thead>
@@ -230,11 +229,16 @@
 							<th>Product</th>
 							<th>Quality</th>
 							<th>Product Name</th>
-						
 							<th>Price</th>
+							<th>Item Total</th>
 							<th>Remove</th>
 						</tr>
 					</thead>
+					{{if .IsEmpty}}
+						<tr class="rem1">
+							<td class="invert"><h2>No items in cart</h2></td>
+						</tr>
+					{{else}}
 					{{range $k1,$v1 := .Product}}
 						<tr class="rem1">
 							<td class="invert">{{$v1.Pid}}</td>
@@ -251,6 +255,7 @@
 							<td class="invert">{{$v1.Pname}}</td>
 							
 							<td class="invert">${{$v1.Amount}}</td>
+							<td class="invert">${{$v1.ItemTotal}}</td>
 							<td class="invert">
 								<div class="rem">
 									<div class="close1"> </div>
@@ -266,19 +271,7 @@
 							</td>
 						</tr>
 					{{end}}
-								<!--quantity-->
-									<script>
-									$('.value-plus').on('click', function(){
-										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)+1;
-										divUpd.text(newVal);
-									});
-
-									$('.value-minus').on('click', function(){
-										var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10)-1;
-										if(newVal>=1) divUpd.text(newVal);
-									});
-									</script>
-								<!--quantity-->
+					{{end}}
 				</table>
 			</div>
 			<div class="checkout-left">	

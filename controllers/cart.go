@@ -6,6 +6,7 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/shopspring/decimal"
 )
 
 type CartController struct {
@@ -42,53 +43,67 @@ func (c *MainController) ShowCheckout() {
 		}
 	}
 	beego.Info(counterMap)
+	beego.Info(counterMap[1])
 
-	//将取出的数量放入 map1[i]["Quantity"]
-	//因为 counterMap 中 index 是string类型无法遍历到map1所以声明一个自增的int类型 i 来使用遍历
-	i := 1
-	for _, v := range counterMap {
+	if counterMap[1] == 0 {
+		c.Data["IsEmpty"] = true
+		c.TplName = "checkout.html"
+	}
+	beego.Info(c.Data["IsEmpty"])
+	for i, v := range counterMap {
 
-		num := cart[i]
-		//3.获取特定商品数据
-		product := models.Product{PID: num}
+		PID := i
+		//3.查询获取特定商品数据
+		product := models.Product{PID: PID}
 		err := o.Read(&product)
 		if err != nil {
 			beego.Info("o.Read err=", err)
 		}
-		beego.Info("pname =", product.Pname)
+		//如果查询返回数据，写入map
+		if err != orm.ErrNoRows {
+			map1[i] = make(map[string]string, 5)
+			map1[i]["Pid"] = strconv.Itoa(product.PID)
+			map1[i]["Pname"] = product.Pname
+			map1[i]["Amount"] = strconv.FormatFloat(product.Amount, 'f', 2, 64)
+			map1[i]["Img"] = product.Img
+			map1[i]["Quantity"] = strconv.Itoa(v)
+			//取得单个商品的总价
+			//先将物品单价product.Amount和数量v相乘
+			itemTotal := decimal.NewFromFloat(product.Amount).Mul(decimal.NewFromFloat(float64(v)))
+			//得到itemTotal是decimal类型，将其转换为float64类型
+			itemTotalF, _ := itemTotal.Float64()
+			//再将其转换为string类型，就可以写入map当中了
+			map1[i]["ItemTotal"] = strconv.FormatFloat(itemTotalF, 'f', 2, 64)
+			beego.Info("pname =", product.Pname)
+			beego.Info(map1)
+		}
 
-		map1[i] = make(map[string]string, 4)
-		map1[i]["Pid"] = strconv.Itoa(product.PID)
-		map1[i]["Pname"] = product.Pname
-		map1[i]["Amount"] = strconv.FormatFloat(product.Amount, 'f', 2, 64)
-		map1[i]["Img"] = product.Img
-		map1[i]["Quantity"] = strconv.Itoa(v)
-		i++
+		// //2.遍历 cart 切片取得 pid 对应的商品
+		// for i := 0; i < len(cart); i++ {
+		// 	fmt.Printf("i= %v v= %v\n", i, cart[i])
+
+		// 	num, _ := strconv.Atoi(cart[i])
+		// 	//3.获取特定商品数据
+		// 	product := models.Product{PID: num}
+		// 	err := o.Read(&product)
+		// 	if err != nil {
+		// 		beego.Info("o.Read err=", err)
+		// 	}
+		// 	beego.Info("pname =", product.Pname)
+		// 	//4.将获取到的数据写入 map
+		// 	map1[i] = make(map[string]string, 4)
+		// 	map1[i]["Pid"] = strconv.Itoa(product.PID)
+		// 	map1[i]["Pname"] = product.Pname
+		// 	map1[i]["Amount"] = strconv.FormatFloat(product.Amount, 'f', 2, 64)
+		// 	map1[i]["Img"] = product.Img
+		// }
+
+		//5.将 map 传到前端页面
+		c.Data["Product"] = map1
+		c.TplName = "checkout.html"
 	}
-	beego.Info(map1[1]["Quantity"], map1[2]["Quantity"])
-	beego.Info(map1)
+}
 
-	// //2.遍历 cart 切片取得 pid 对应的商品
-	// for i := 0; i < len(cart); i++ {
-	// 	fmt.Printf("i= %v v= %v\n", i, cart[i])
+func (c *MainController) getTotal() {
 
-	// 	num, _ := strconv.Atoi(cart[i])
-	// 	//3.获取特定商品数据
-	// 	product := models.Product{PID: num}
-	// 	err := o.Read(&product)
-	// 	if err != nil {
-	// 		beego.Info("o.Read err=", err)
-	// 	}
-	// 	beego.Info("pname =", product.Pname)
-	// 	//4.将获取到的数据写入 map
-	// 	map1[i] = make(map[string]string, 4)
-	// 	map1[i]["Pid"] = strconv.Itoa(product.PID)
-	// 	map1[i]["Pname"] = product.Pname
-	// 	map1[i]["Amount"] = strconv.FormatFloat(product.Amount, 'f', 2, 64)
-	// 	map1[i]["Img"] = product.Img
-	// }
-
-	//5.将 map 传到前端页面
-	c.Data["Product"] = map1
-	c.TplName = "checkout.html"
 }
