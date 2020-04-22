@@ -14,8 +14,9 @@ type UserController struct {
 
 //ShowIndex 展示index页面
 func (this *UserController) ShowIndex() {
-	//检查session
+	//1.获取session
 	username := this.GetSession("username")
+	//2.检查session
 	if username != nil {
 		this.Data["isLogin"] = true
 		this.Data["username"] = username

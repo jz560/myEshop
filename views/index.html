@@ -56,7 +56,7 @@
 				{{end}}
 			</div>
 			<div class="product_list_header">  
-				<form action="#" method="post" class="last"> 
+				<form action="/checkout" method="GET" class="last"> 
 					<input type="hidden" name="cmd" value="_cart">
 					<input type="hidden" name="display" value="1">
 					<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
@@ -284,7 +284,7 @@
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="pid" value="1" />
+																	<input type="hidden" name="pid" class="pid" value="1" />
 																	<input type="hidden" name="business" value=" " />
 																	<input type="hidden" name="item_name" value="Tata-salt" />
 																	<input type="hidden" name="amount" value="20.99" />
@@ -292,7 +292,7 @@
 																	<input type="hidden" name="currency_code" value="USD" />
 																	<input type="hidden" name="return" value=" " />
 																	<input type="hidden" name="cancel_return" value=" " />
-																	<input type="submit" name="submit" value="Add to cart" class="button" />
+																	<input type="button" name="submit" id="1" value="Add to cart" class="button addBtn1" />
 																</fieldset>
 															</form>
 														</div>
@@ -328,7 +328,7 @@
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="pid" value="2" />
+																	<input type="hidden" name="pid" class="pid" value="2" />
 																	<input type="hidden" name="business" value=" " />
 																	<input type="hidden" name="item_name" value="Fortune Sunflower Oil" />
 																	<input type="hidden" name="amount" value="20.99" />
@@ -336,7 +336,7 @@
 																	<input type="hidden" name="currency_code" value="USD" />
 																	<input type="hidden" name="return" value=" " />
 																	<input type="hidden" name="cancel_return" value=" " />
-																	<input type="submit" name="submit" value="Add to cart" class="button" />
+																	<input type="button" name="submit" value="Add to cart" class="button addBtn2" id="2"/>
 																</fieldset>
 															</form>
 														</div>
@@ -1250,9 +1250,46 @@
 								
 			$().UItoTop({ easingType: 'easeOutQuart' });
 								
-			});
+		});
 	</script>
 <!-- //here ends scrolling icon -->
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			$(".addBtn1").click(function(){
+				$.ajax({
+					url:"http://47.106.250.159:8080/addItem", //请求的url地址
+					dataType:"json", //返回格式为json
+					async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+					data:{"pid":$(".addBtn1").attr("id")}, //参数值
+					type:"POST", //请求方式
+					success:function(req){
+						alert("success");
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+                 	},
+				});
+			});
+
+			$(".addBtn2").click(function(){
+				$.ajax({
+					url:"http://47.106.250.159:8080/addItem", //请求的url地址
+					dataType:"json", //返回格式为json
+					async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+					data:{"pid":$(".addBtn2").attr("id")}, //参数值
+					type:"POST", //请求方式
+					success:function(req){
+						alert("success");
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+                 	},
+				});
+			});					
+		});
+
+		
+	</script>
 <!-- <script src="/static/js/minicart.min.js"></script>
 <script>
 	// Mini Cart

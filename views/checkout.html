@@ -236,7 +236,6 @@
 						</tr>
 					</thead>
 					{{range $k1,$v1 := .Product}}
-						
 						<tr class="rem1">
 							<td class="invert">{{$v1.Pid}}</td>
 							<td class="invert-image"><a href="single.html"><img src={{$v1.Img}} alt=" " class="img-responsive" /></a></td>
@@ -244,7 +243,7 @@
 								<div class="quantity"> 
 									<div class="quantity-select">                           
 										<div class="entry value-minus">&nbsp;</div>
-										<div class="entry value"><span>1</span></div>
+										<div class="entry value"><span>{{$v1.Quantity}}</span></div>
 										<div class="entry value-plus active">&nbsp;</div>
 									</div>
 								</div>
@@ -266,66 +265,7 @@
 							</script>
 							</td>
 						</tr>
-						
 					{{end}}
-					<tr class="rem2">
-						<td class="invert">2</td>
-						<td class="invert-image"><a href="single.html"><img src="/static/images/2.png" alt=" " class="img-responsive" /></a></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-						</td>
-						<td class="invert">Fortune oil</td>
-					
-						<td class="invert">$250.00</td>
-						<td class="invert">
-							<div class="rem">
-								<div class="close2"> </div>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close2').on('click', function(c){
-									$('.rem2').fadeOut('slow', function(c){
-										$('.rem2').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-					</tr>
-					<tr class="rem3">
-						<td class="invert">3</td>
-						<td class="invert-image"><a href="single.html"><img src="/static/images/3.png" alt=" " class="img-responsive" /></a></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus">&nbsp;</div>
-									<div class="entry value"><span>1</span></div>
-									<div class="entry value-plus active">&nbsp;</div>
-								</div>
-							</div>
-						</td>
-						<td class="invert">Aashirvaad atta</td>
-						
-						<td class="invert">$15.00</td>
-						<td class="invert">
-							<div class="rem">
-								<div class="close3"> </div>
-							</div>
-							<script>$(document).ready(function(c) {
-								$('.close3').on('click', function(c){
-									$('.rem3').fadeOut('slow', function(c){
-										$('.rem3').remove();
-									});
-									});	  
-								});
-						   </script>
-						</td>
-					</tr>
 								<!--quantity-->
 									<script>
 									$('.value-plus').on('click', function(){
