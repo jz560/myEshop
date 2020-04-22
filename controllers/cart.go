@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"myEshop/models"
 	"strconv"
 
@@ -33,7 +34,7 @@ func (c *MainController) ShowCheckout() {
 	//1.声明一个Map储存遍历出来的数据
 	var map1 = make(map[int]map[string]string)
 
-	//取出 cart 中每个商品的数量
+	//2.取出 cart 中每个商品的数量
 	counterMap := make(map[int]int)
 	for _, v := range cart {
 		if counterMap[v] != 0 {
@@ -45,21 +46,25 @@ func (c *MainController) ShowCheckout() {
 	beego.Info(counterMap)
 	beego.Info(counterMap[1])
 
+	//3.检查counterMap中是否有值，没有则代表购物车为空
 	if counterMap[1] == 0 {
 		c.Data["IsEmpty"] = true
 		c.TplName = "checkout.html"
 	}
 	beego.Info(c.Data["IsEmpty"])
+
+	var total float64 //所有商品总价
 	for i, v := range counterMap {
 
 		PID := i
-		//3.查询获取特定商品数据
+
+		//4.查询获取特定商品数据
 		product := models.Product{PID: PID}
 		err := o.Read(&product)
 		if err != nil {
 			beego.Info("o.Read err=", err)
 		}
-		//如果查询返回数据，写入map
+		//5.如果查询返回数据，写入map
 		if err != orm.ErrNoRows {
 			map1[i] = make(map[string]string, 5)
 			map1[i]["Pid"] = strconv.Itoa(product.PID)
@@ -74,10 +79,10 @@ func (c *MainController) ShowCheckout() {
 			itemTotalF, _ := itemTotal.Float64()
 			//再将其转换为string类型，就可以写入map当中了
 			map1[i]["ItemTotal"] = strconv.FormatFloat(itemTotalF, 'f', 2, 64)
+
 			beego.Info("pname =", product.Pname)
 			beego.Info(map1)
 		}
-
 		// //2.遍历 cart 切片取得 pid 对应的商品
 		// for i := 0; i < len(cart); i++ {
 		// 	fmt.Printf("i= %v v= %v\n", i, cart[i])
@@ -98,10 +103,18 @@ func (c *MainController) ShowCheckout() {
 		// 	map1[i]["Img"] = product.Img
 		// }
 
-		//5.将 map 传到前端页面
-		c.Data["Product"] = map1
-		c.TplName = "checkout.html"
 	}
+	//6.取得商品总价
+	for i, _ := range map1 {
+		ItemTotal, _ := strconv.ParseFloat(map1[i]["ItemTotal"], 64)
+		total += ItemTotal
+		beego.Info(total)
+	}
+	total, _ = strconv.ParseFloat(fmt.Sprintf("%.2f", total), 64)
+	//7.将 map 和商品总价传到前端页面
+	c.Data["Total"] = total
+	c.Data["Product"] = map1
+	c.TplName = "checkout.html"
 }
 
 func (c *MainController) getTotal() {

@@ -239,38 +239,38 @@
 							<td class="invert"><h2>No items in cart</h2></td>
 						</tr>
 					{{else}}
-					{{range $k1,$v1 := .Product}}
-						<tr class="rem1">
-							<td class="invert">{{$v1.Pid}}</td>
-							<td class="invert-image"><a href="single.html"><img src={{$v1.Img}} alt=" " class="img-responsive" /></a></td>
-							<td class="invert">
-								<div class="quantity"> 
-									<div class="quantity-select">                           
-										<div class="entry value-minus">&nbsp;</div>
-										<div class="entry value"><span>{{$v1.Quantity}}</span></div>
-										<div class="entry value-plus active">&nbsp;</div>
+						{{range $k1,$v1 := .Product}}
+							<tr class="rem1">
+								<td class="invert">{{$v1.Pid}}</td>
+								<td class="invert-image"><a href="single.html"><img src={{$v1.Img}} alt=" " class="img-responsive" /></a></td>
+								<td class="invert">
+									<div class="quantity"> 
+										<div class="quantity-select">                           
+											<div class="entry value-minus">&nbsp;</div>
+											<div class="entry value"><span>{{$v1.Quantity}}</span></div>
+											<div class="entry value-plus active">&nbsp;</div>
+										</div>
 									</div>
-								</div>
-							</td>
-							<td class="invert">{{$v1.Pname}}</td>
-							
-							<td class="invert">${{$v1.Amount}}</td>
-							<td class="invert">${{$v1.ItemTotal}}</td>
-							<td class="invert">
-								<div class="rem">
-									<div class="close1"> </div>
-								</div>
-								<script>$(document).ready(function(c) {
-									$('.close1').on('click', function(c){
-										$('.rem1').fadeOut('slow', function(c){
-											$('.rem1').remove();
+								</td>
+								<td class="invert">{{$v1.Pname}}</td>
+								
+								<td class="invert">${{$v1.Amount}}</td>
+								<td class="invert">${{$v1.ItemTotal}}</td>
+								<td class="invert">
+									<div class="rem">
+										<div class="close1"> </div>
+									</div>
+									<script>$(document).ready(function(c) {
+										$('.close1').on('click', function(c){
+											$('.rem1').fadeOut('slow', function(c){
+												$('.rem1').remove();
+											});
+											});	  
 										});
-										});	  
-									});
-							</script>
-							</td>
-						</tr>
-					{{end}}
+								</script>
+								</td>
+							</tr>
+						{{end}}
 					{{end}}
 				</table>
 			</div>
@@ -282,7 +282,7 @@
 						<li>Product2 <i>-</i> <span>$25.00 </span></li>
 						<li>Product3 <i>-</i> <span>$29.00 </span></li>
 						<li>Total Service Charges <i>-</i> <span>$15.00</span></li>
-						<li>Total <i>-</i> <span>$84.00</span></li>
+						<li>Total <i>-</i> <span>${{.Total}}</span></li>
 					</ul>
 				</div>
 				<div class="checkout-right-basket">
