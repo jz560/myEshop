@@ -60,12 +60,14 @@ func (this *UserController) RegisterHandler() {
 	//1.拿到数据
 	username := this.GetString("username")
 	pwd := this.GetString("password")
-	//2.检查数据
+	address := this.GetString("address")
+	//2.准备数据
 	o := orm.NewOrm()
 	user := models.User{}
 	user.Uname = username
 	user.Pwd = pwd
-
+	user.Address = address
+	//3.检查数据
 	err := o.Read(&user, "Uname")
 	if err != nil {
 		_, err := o.Insert(&user)
@@ -74,6 +76,7 @@ func (this *UserController) RegisterHandler() {
 		}
 		this.SetSession("username", username)
 		this.ShowIndex()
+		return
 	}
 	this.ShowRegister()
 	this.Data["errmsg"] = "Username already exist!"
