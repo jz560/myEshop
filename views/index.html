@@ -292,7 +292,7 @@
 																	<input type="hidden" name="currency_code" value="USD" />
 																	<input type="hidden" name="return" value=" " />
 																	<input type="hidden" name="cancel_return" value=" " />
-																	<input type="button" name="submit" id="1" value="Add to cart" class="button addBtn1" />
+																	<input type="button" name="submit" id="1" value="Add to cart" class="button addBtn3" />
 																</fieldset>
 															</form>
 														</div>
@@ -368,10 +368,11 @@
 															<h4>$40.99 <span>$65.00</span></h4>
 														</div>
 														<div class="snipcart-details top_brand_home_details">
-															<form action="#" method="post">
+															<form action="/addItem" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
-																	<input type="hidden" name="add" value="1" />
+																	<input type="hidden" name="add" value="3" />
+																	<input type="hidden" name="pid" class="pid" value="3" />
 																	<input type="hidden" name="business" value=" " />
 																	<input type="hidden" name="item_name" value="Pepsi soft drink" />
 																	<input type="hidden" name="amount" value="40.00" />
@@ -379,7 +380,7 @@
 																	<input type="hidden" name="currency_code" value="USD" />
 																	<input type="hidden" name="return" value=" " />
 																	<input type="hidden" name="cancel_return" value=" " />
-																	<input type="submit" name="submit" value="Add to cart" class="button" />
+																	<input type="button" name="submit" id="3" value="Add to cart" class="button addBtn1" />
 																</fieldset>
 															</form>
 														</div>
@@ -867,115 +868,6 @@
 					</div>
 				</div>
 <!--banner-bottom-->
-<!--brands-->
-	<div class="brands">
-		<div class="container">
-		<h3>Brand Store</h3>
-			<div class="brands-agile">
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-			<div class="brands-agile-1">
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-			<div class="brands-agile-2">
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="col-md-2 w3layouts-brand">
-					<div class="brands-w3l">
-						<p><a href="#">Lorem</a></p>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		</div>
-	</div>	
-<!--//brands-->
 <!-- new -->
 	<div class="newproducts-w3agile">
 		<div class="container">
@@ -1285,7 +1177,21 @@
 					error:function(XMLHttpRequest, textStatus, errorThrown){
                  	},
 				});
-			});					
+			});	
+			$(".addBtn3	").click(function(){
+				$.ajax({
+					url:"http://47.106.250.159:8080/addItem", //请求的url地址
+					dataType:"json", //返回格式为json
+					async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+					data:{"pid":$(".addBtn3").attr("id")}, //参数值
+					type:"POST", //请求方式
+					success:function(req){
+						alert("success");
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+                 	},
+				});
+			});				
 		});
 
 		
