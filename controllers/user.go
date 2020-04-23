@@ -28,11 +28,31 @@ func (this *UserController) ShowIndex() {
 }
 
 func (this *UserController) ShowRegister() {
+	//1.获取session
+	username := this.GetSession("username")
+	//2.检查session
+	if username != nil {
+		this.Data["isLogin"] = true
+		this.Data["username"] = username
+	} else {
+		this.Data["isLogin"] = false
+	}
+	this.Layout = "layout.html"
 	this.TplName = "registered.html"
 }
 
 //ShowLogin 展示login页面
 func (this *UserController) ShowLogin() {
+	//1.获取session
+	username := this.GetSession("username")
+	//2.检查session
+	if username != nil {
+		this.Data["isLogin"] = true
+		this.Data["username"] = username
+	} else {
+		this.Data["isLogin"] = false
+	}
+	this.Layout = "layout.html"
 	this.TplName = "login.html"
 }
 
@@ -85,6 +105,20 @@ func (this *UserController) LoginHandler() {
 		this.ShowIndex()
 		return
 	}
+}
+
+func (this *UserController) ShowPaid() {
+	//1.获取session
+	username := this.GetSession("username")
+	//2.检查session
+	if username != nil {
+		this.Data["isLogin"] = true
+		this.Data["username"] = username
+	} else {
+		this.Data["isLogin"] = false
+	}
+	this.Layout = "layout.html"
+	this.TplName = "paid.html"
 }
 
 //LogoutHandler 删除当前session，退出登录
